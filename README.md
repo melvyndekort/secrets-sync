@@ -25,6 +25,12 @@ services:
 - `NODE`: Node name to filter secrets files (required)
 - `BRANCH`: Git branch (default: main)
 
+## Behavior
+
+The container decrypts all `${NODE}-*.enc.env` files from `secrets/` directory in the repository and outputs them to `/secrets/` with the full filename preserved (e.g., `compute-1-monitoring.enc.env` → `compute-1-monitoring.env`).
+
+This allows Portainer running on one node to access secrets for stacks deployed to other nodes.
+
 ## Volumes
 
 - `/secrets`: Output directory for decrypted secrets

@@ -45,14 +45,14 @@ count=0
 
 for file in repo/secrets/${NODE}-*.enc.env; do
     if [ -f "$file" ]; then
-        stack=$(basename "$file" .enc.env | sed "s/${NODE}-//")
-        echo "  Decrypting ${stack}.env..."
+        filename=$(basename "$file" .enc.env)
+        echo "  Decrypting ${filename}.env..."
         
-        sops -d "$file" > "/secrets/${stack}.env"
-        chmod 600 "/secrets/${stack}.env"
+        sops -d "$file" > "/secrets/${filename}.env"
+        chmod 600 "/secrets/${filename}.env"
         
         count=$((count + 1))
-        echo "  ✓ ${stack}.env"
+        echo "  ✓ ${filename}.env"
     fi
 done
 
