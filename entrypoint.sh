@@ -9,11 +9,6 @@ if [ -z "$REPO_URL" ]; then
     exit 1
 fi
 
-if [ -z "$NODE" ]; then
-    echo "Error: NODE not set" >&2
-    exit 1
-fi
-
 BRANCH="${BRANCH:-main}"
 
 # Validate age key exists
@@ -43,7 +38,7 @@ export SOPS_AGE_KEY=$(cat /age-key.txt)
 echo "Decrypting secrets..."
 count=0
 
-for file in repo/secrets/${NODE}-*.enc.env; do
+for file in repo/secrets/*.enc.env; do
     if [ -f "$file" ]; then
         filename=$(basename "$file" .enc.env)
         echo "  Decrypting ${filename}.env..."

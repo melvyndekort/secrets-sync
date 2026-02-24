@@ -16,20 +16,18 @@ services:
     environment:
       REPO_URL: git@github.com:user/repo.git
       BRANCH: main
-      NODE: compute-1
 ```
 
 ## Environment Variables
 
 - `REPO_URL`: Git repository URL (required)
-- `NODE`: Node name to filter secrets files (required)
 - `BRANCH`: Git branch (default: main)
 
 ## Behavior
 
-The container decrypts all `${NODE}-*.enc.env` files from `secrets/` directory in the repository and outputs them to `/secrets/` with the full filename preserved (e.g., `compute-1-monitoring.enc.env` → `compute-1-monitoring.env`).
+The container decrypts all `*.enc.env` files from `secrets/` directory in the repository and outputs them to `/secrets/` with the full filename preserved (e.g., `compute-1-monitoring.enc.env` → `compute-1-monitoring.env`).
 
-This allows Portainer running on one node to access secrets for stacks deployed to other nodes.
+This is designed to run on the Portainer host node so it has access to secrets for all managed nodes.
 
 ## Volumes
 
